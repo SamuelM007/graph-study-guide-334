@@ -215,7 +215,7 @@ public class Practice {
    */
   public static boolean hasExtendedConnectionAtCompany(Professional person, String companyName) {
     if(person == null) return false;
-    
+
     Set<Professional> checked = new HashSet<>();
     return hasExtendedConnectionAtCompany(person, companyName, checked);
   }
@@ -302,6 +302,17 @@ public class Practice {
    * @return an unsorted list of next moves
    */
   public static List<int[]> nextMoves(char[][] board, int[] current, int[][] directions) {
-    return null;
+    List<int[]> nextMoves = new ArrayList<>();
+
+    for(int[] direction : directions){
+      int[] nextStep = new int[]{current[0] + direction[0], current[1] + direction[1]};
+      if(nextStep[0] >= 0 && nextStep[0] < board.length
+        && nextStep[1] >= 0 && nextStep[1] < board[0].length 
+        && board[nextStep[0]][nextStep[1]] != 'X'
+      ){
+        nextMoves.add(nextStep);
+      }
+    }
+    return nextMoves;
   }
 }
