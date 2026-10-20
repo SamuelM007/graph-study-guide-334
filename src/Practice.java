@@ -214,7 +214,24 @@ public class Practice {
    * @return true if a person in the extended network works at the specified company, false otherwise
    */
   public static boolean hasExtendedConnectionAtCompany(Professional person, String companyName) {
-    return false;
+    if(person == null) return false;
+    
+    Set<Professional> checked = new HashSet<>();
+    return hasExtendedConnectionAtCompany(person, companyName, checked);
+  }
+
+  private static boolean hasExtendedConnectionAtCompany(Professional person, String companyName, Set<Professional> checked){
+    if(checked.contains(person)) return false;
+    checked.add(person);
+
+    if(person.getCompany() == companyName)return true;
+
+    boolean hasConnection = false;
+    for(var connection : person.getConnections()){
+      hasConnection = hasConnection || hasExtendedConnectionAtCompany(connection, companyName, checked);
+    }
+    return hasConnection;
+
   }
 
   /**
